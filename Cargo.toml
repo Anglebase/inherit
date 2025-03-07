@@ -2,6 +2,9 @@
 name = "inherits"
 version = "0.1.0"
 edition = "2021"
+description = "Improved Practices for the Composition Pattern in Rust"
+repository = "https://github.com/Anglebase/inherit.git"
+license = "MIT"
 
 [lib]
 proc-macro = true
