@@ -1,0 +1,44 @@
+use proc_macro::TokenStream;
+use quote::quote;
+use syn::{parse_macro_input, parse_quote, DeriveInput, Field};
+
+#[proc_macro_attribute]
+pub fn inherit(args: TokenStream, input: TokenStream) -> TokenStream {
+    let mut ast = parse_macro_input!(input as DeriveInput);
+    let args = parse_macro_input!(args as syn::Path);
+
+    let name = &ast.ident;
+
+    if let syn::Data::Struct(syn::DataStruct {
+        fields: syn::Fields::Named(ref mut fields),
+        ..
+    }) = ast.data
+    {
+        let new_field: Field = parse_quote! {
+            parent: #args
+        };
+        fields.named.push(new_field);
+
+        let result = quote! {
+            #ast
+
+            impl std::ops::Deref for #name {
+                type Target = #args;
+
+                fn deref(&self) -> &Self::Target {
+                    &self.parent
+                }
+            }
+
+            impl std::ops::DerefMut for #name {
+                fn deref_mut(&mut self) -> &mut Self::Target {
+                    &mut self.parent
+                }
+            }
+        };
+
+        TokenStream::from(result)
+    } else {
+        panic!("Only structs with named fields are supported.")
+    }
+}
