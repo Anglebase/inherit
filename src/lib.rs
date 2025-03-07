@@ -2,8 +2,9 @@ use proc_macro::TokenStream;
 use quote::quote;
 use syn::{parse_macro_input, parse_quote, DeriveInput, Field};
 
+/// This attribute allows you to inherit from another struct.
 #[proc_macro_attribute]
-pub fn inherit(args: TokenStream, input: TokenStream) -> TokenStream {
+pub fn inherits(args: TokenStream, input: TokenStream) -> TokenStream {
     let mut ast = parse_macro_input!(input as DeriveInput);
     let args = parse_macro_input!(args as syn::Path);
 
