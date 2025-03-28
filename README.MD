@@ -5,3 +5,7 @@ This attribute macro achieves inheritance-like effects through the `Deref` and `
 A struct annotated with `#[inherit(T)]` will implicitly contain a `parent` field of type `T`, enabling single inheritance behavior.
 
 For disambiguated access to fields with the same name, use `(&<name> as &<type>).<field>` or `(&mut <name> as &mut <type>).<field>` syntax.
+
+# #[new_type]
+
+This property macro can automatically implement the 'Deref' and 'DerefMut' traits for tuple structs to implement the New-Type pattern
