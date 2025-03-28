@@ -5,6 +5,7 @@ edition = "2021"
 description = "Improved Practices for the Composition Pattern in Rust"
 repository = "https://github.com/Anglebase/inherit.git"
 license = "MIT"
+readme = "README.MD"
 
 [lib]
 proc-macro = true
